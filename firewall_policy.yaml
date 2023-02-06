@@ -1,0 +1,41 @@
+---
+
+- hosts: localhost
+  vars:
+    host: "{{ host_ip }}"
+    username: "ansible"
+    password: "{{ lookup('password','passwd') }}"
+    vdom: "root"
+    ssl_verify: "False"
+  tasks:
+  - name: Configuring firewall policy for VLAN_100 to talk to VLAN_200
+      fortios_firewall_policy:
+        host: "{{ host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        vdom: "{{ vdom }}"
+        https: "True"
+        ssl_verify: "False"
+        firewall_policy:
+          state: "present"
+          srcintf:
+            -
+              name: "VLAN_100"
+          srcaddr:
+            -
+              name: "VLAN_100_Net"
+          dstintf:
+            -
+              name: "VLAN_200"
+          dstaddr:
+            -
+              name: "VLAN_200_Net"
+          schedule: "always"
+          service:
+            -
+              name: "ALL"
+          action: "accept"
+          nat: "disable"
+          status: "enable"
+          policyid: "5"
+          name: "VLAN100_VLAN200"
