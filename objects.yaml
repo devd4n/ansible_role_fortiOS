@@ -11,6 +11,20 @@
     ansible_httpapi_validate_certs: no
     ansible_httpapi_port: 443
   tasks:
+   - name: Configure IPv4 addresses.
+    fortios_firewall_address:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      state: "present"
+      firewall_address:
+        allow_routing: "enable"
+        comment: "Comment."
+        name: "testfwaddr"
+        start_ip: "1.1.1.1"
+        end_ip: "1.1.1.2"
+        type: "iprange"
   - name: Configure IPv4 address groups.
     fortios_firewall_addrgrp:
       host:  "{{ host }}"
@@ -24,3 +38,5 @@
         member:
          -
             name: "SSLVPN_TUNNEL_ADDR1"
+ 
+
