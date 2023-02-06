@@ -1,0 +1,20 @@
+---
+
+- connection: httpapi
+  hosts: localhost
+  vars:
+    host: "{{ host_ip }}"
+    hostname: "Fortigate01"
+    username: "ansible"
+    password: "{{ lookup('password','passwd') }}"
+    vdom: "root"
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: no
+    ansible_httpapi_port: 443
+  tasks: 
+  - name: Configure global attributes.
+    fortios_system_global:
+      vdom:  "{{ vdom }}"
+      system_global:
+        admintimeout: "23"
+        hostname: "{{ hostname }}"
