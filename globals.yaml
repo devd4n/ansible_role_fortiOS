@@ -18,3 +18,12 @@
       system_global:
         admintimeout: "23"
         hostname: "{{ hostname }}"
+  - name: Configure DNS
+    fortios_system_dns:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      system_dns:
+        primary: "1.1.1.1"
+
